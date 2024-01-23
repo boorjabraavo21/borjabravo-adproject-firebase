@@ -1,0 +1,65 @@
+.flex {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.info{
+    width: 500px;
+    display: flex;
+    justify-content: space-between
+}
+
+img {
+    width: 300px;
+    height: auto;
+}
+
+ion-card {
+    width: 1000px;
+    height: auto;
+    padding: 20px;
+    border-style: hidden;
+}
+
+@media(max-width:990px) {
+  ion-card {
+    width: 600px;
+  }
+  .info{
+    width: 300px;
+    display: flex;
+    justify-content: space-between
+  }
+  img {
+    width: 250px;
+    height: 300px;
+  }
+}
+
+@media(max-width:450px) {
+  ion-card {
+    width: 400px;
+  }
+  .flex {
+    flex-direction: column;
+  }
+  .info{
+    width: 250px;
+    display: flex;
+    justify-content: space-between
+  }
+  h1 {
+    font-size:large;
+  }
+  h2 {
+    font-size: medium;
+  }
+  p {
+    font-size: small;
+  }
+  img {
+    width: 150px;
+    height: 170px;
+  }
+}

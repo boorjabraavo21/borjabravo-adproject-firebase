@@ -1,0 +1,13 @@
+<ion-searchbar show-clear-button="focus" placeholder="{{'searcher-placeholder' | translate}}"
+  (ionFocus)="onLoadPlayers()" (ionClear)="onLoadPlayers()" (ionInput)="onFilter($event)"
+  [debounce]="200"></ion-searchbar>
+<ion-content id="lista" *ngIf="showList">
+  <ion-list *ngIf="!originalPlayers">
+    <app-player-item (clicked)="onPlayerClick($event)" *ngFor="let player of players"
+      [player]="player"></app-player-item>
+  </ion-list>
+  <ion-list *ngIf="originalPlayers">
+    <app-player-item (clicked)="onPlayerClick($event)" *ngFor="let player of players | originalPlayer"
+      [player]="player"></app-player-item>
+  </ion-list>
+</ion-content>

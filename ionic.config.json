@@ -1,0 +1,7 @@
+{
+  "name": "borjabravo-adproject",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

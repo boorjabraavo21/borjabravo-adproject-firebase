@@ -1,0 +1,24 @@
+#buscador {
+  display: flex;
+  justify-content: center;
+  app-player-searcher {
+    width: 500px;
+    z-index: 2;
+  }
+  
+}
+
+#home {
+  position:fixed;
+  top: 0;
+  margin-top: 300px;
+  width: 100%;
+  text-align: center;
+  height: 500px;
+  z-index: 1;
+}
+
+h1, h3 {
+  text-shadow: 5px 5px 5px rgb(5, 56, 10);
+}
+

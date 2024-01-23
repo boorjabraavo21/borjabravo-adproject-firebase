@@ -1,0 +1,86 @@
+{
+    "home":{
+        "title":"¡Bienvenido a FUTCaser!",
+        "subtitle":"Busca información sobre los jugadores de La Liga y crea jugadores personalizados y plantillas para ellos"
+    },
+    "player": {
+        "nameLabel":"Nombre",
+        "positionLabel":"Posición",
+        "ageLabel":"Edad",
+        "teamLabel":"Equipo",
+        "nationLabel":"País",
+        "ratingLabel":"Valoración",
+        "yearsLabel":"años",
+        "created":"Creado",
+        "statsLabel":"Estadísticas de la temporada",
+        "matchesLabel":"Partidos",
+        "goalsLabel":"Goles",
+        "assistsLabel":"Asistencias",
+        "cleanSheetsLabel":"Porterias a cero"
+    },
+    "squad":{
+        "lineUpLabel":"Formación"
+    },
+    "main":{
+        "hello":"Hola"
+    },
+    "login":{
+        "email":"Email",
+        "pwd":"Contraseña",
+        "noAccount":"No tengo cuenta",
+        "submit":"Acceder"
+    },
+    "register":{
+        "email":"Email",
+        "name":"Nombre",
+        "surname":"Apellidos",
+        "nickname":"Apodo",
+        "pwd":"Contraseña",
+        "confirm":"Confirmar contraseña",
+        "login":"Ya tengo cuenta",
+        "submit":"Registrar"
+    },
+    "user-card":{
+        "name":"Nombre"
+    },
+    "header":{
+        "user":{
+            "guest":"Invitado",
+            "profile":"Mi perfil",
+            "signout":"Cerrar sesión"
+        },
+        "languages":{
+            "es":"Español",
+            "en":"Inglés"
+        }
+    },
+    "menu":{
+        "home":"Inicio",
+        "login":"Iniciar sesión",
+        "myplayers":"Mis jugadores",
+        "mysquads":"Mis plantillas",
+        "signout":"Cerrar sesión",
+        "about":"Información"
+    },
+    "about":{
+        "developer":"Desarrollador de la web",
+        "gitLabel":"Cuenta de github (click en el nombre para entrar):",
+        "description":"Esta web app consiste en una app de información sobre fútbolistas de La Liga española, además consta de dos páginas (hay que autentificarse para su uso) en las que puedes crear tus propios futbolistas y alinearlos en plantillas que puedas crear a tu gusto"
+    },
+    "searcher-placeholder":"Buscar jugador",
+    "form":{
+        "mode": {
+            "createSquad":"Crear Plantilla",
+            "createPlayer":"Crear Jugador",
+            "editSquad":"Editar Plantilla",
+            "editPlayer":"Edit Jugador",
+            "create":"Crear",
+            "save":"Guardar"
+        },
+        "placeholder":{
+            "name":"Escribe el nombre",
+            "click":"Click para elegir",
+            "nation":"Escribe la nacionalidad"
+        }
+    }
+}

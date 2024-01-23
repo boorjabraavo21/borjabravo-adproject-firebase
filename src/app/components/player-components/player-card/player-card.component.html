@@ -1,0 +1,21 @@
+<ion-card (click)="presentSelector()">
+  <div id="position">
+    <ion-card-subtitle>{{player?.rating}}</ion-card-subtitle>
+    <ion-card-subtitle>{{player?.position}}</ion-card-subtitle>
+  </div>
+  <ion-card-header>
+    <div class="card-header">
+      <div id="image">
+        <ion-avatar>
+          <img *ngIf="player" alt="Player photo" [src]="player.picture?.url_thumbnail" />
+        </ion-avatar>
+      </div>
+      <div class="text-center">
+        <p id="nombre">{{player?.name}}</p>
+      </div>
+    </div>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-label *ngIf="player?.team=='Created'">{{'player.created' | translate}}</ion-label>
+  </ion-card-content>
+</ion-card>

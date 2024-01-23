@@ -1,0 +1,19 @@
+<ion-content class="offset-header" [fullscreen]="false">
+  <div class="container">
+    <ion-card>
+      <ion-card-header>
+        <div class="logo">
+          <ion-thumbnail>
+            <img alt="logo of app" src="assets/app_logo.png" />
+          </ion-thumbnail>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="ion-text-end">
+          <ion-button [routerLink]="['/login']" fill="clear" style="text-transform: none;">{{'register.login' | translate}}</ion-button>
+        </div>
+        <app-register-form (onsubmit)="onRegister($event)"></app-register-form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

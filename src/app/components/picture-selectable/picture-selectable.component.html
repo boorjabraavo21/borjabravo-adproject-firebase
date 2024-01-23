@@ -1,0 +1,16 @@
+<input type="file" #fileLoader accept="image/png, image/jpeg" hidden>
+<div class="user-picture">
+  <ng-container *ngIf="hasValue">
+    <ion-img id="picture"  [src]="picture$ | async" (click)="onChangePicture($event, fileLoader)"></ion-img>
+    <ion-button *ngIf="!isDisabled"
+      style="position:absolute;top:40px;right:0;--background:rgba(var(--ion-color-danger-rgb), 0.7);"
+      expand="full" (click)="onDeletePicture($event)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+    </ion-button>
+  </ng-container>
+  <ion-button color="medium" *ngIf="!isDisabled && !hasValue"
+  style="height:100%;width:100%"
+  expand="full" fill="clear" (click)="onChangePicture($event,fileLoader)">
+    <ion-icon name="image" style="width:100%;height:100%"></ion-icon>
+  </ion-button>
+</div>

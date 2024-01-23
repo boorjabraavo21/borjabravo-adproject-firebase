@@ -1,0 +1,21 @@
+#añadir {
+    margin-left: 5px;
+}
+
+#squads {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 50px;
+}
+
+@media (max-width: 990px) {
+    #squads {
+      margin: 30px
+    }
+}
+
+@media (max-width: 450px) {
+    #squads {
+      margin: 15px
+    }
+}

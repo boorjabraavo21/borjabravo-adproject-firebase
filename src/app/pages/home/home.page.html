@@ -1,0 +1,9 @@
+<ion-content class="offset-header" [fullscreen]="false">
+  <div id="buscador">
+    <app-player-searcher [originalPlayers]="true" (onPlayerClicked)="toPlayerPage($event)"></app-player-searcher>
+  </div>
+  <div id="home">
+    <h1>{{'home.title' | translate}}</h1>
+    <h3>{{'home.subtitle' | translate}}</h3>
+  </div>
+</ion-content>

@@ -1,0 +1,86 @@
+{
+    "home":{
+        "title":"Welcome to FUTCaser!",
+        "subtitle":"Search information of La Liga players and create new players and squads for them"
+    },
+    "player": {
+        "nameLabel":"Name",
+        "positionLabel":"Position",
+        "ageLabel":"Age",
+        "teamLabel":"Team",
+        "nationLabel":"Nation",
+        "ratingLabel":"Rating",
+        "yearsLabel":"years",
+        "created":"Created",
+        "statsLabel":"Season stats",
+        "matchesLabel":"Matches",
+        "goalsLabel":"Goals",
+        "assistsLabel":"Assists",
+        "cleanSheetsLabel":"Clean sheets"
+    },
+    "squad":{
+        "lineUpLabel":"Line-Up"
+    },
+    "main":{
+        "hello":"Hello"
+    },
+    "login":{
+        "email":"Email",
+        "pwd":"Password",
+        "noAccount":"I have no account",
+        "submit":"Access"
+    },
+    "register":{
+        "email":"Email",
+        "name":"Name",
+        "surname":"Surname",
+        "nickname":"Nickname",
+        "pwd":"Password",
+        "confirm":"Confirm password",
+        "login":"I have account",
+        "submit":"Register"
+    },
+    "user-card":{
+        "name":"Name"
+    },
+    "header":{
+        "user":{
+            "guest":"Guest",
+            "profile":"My profile",
+            "signout":"Sign out"
+        },
+        "languages":{
+            "es":"Spanish",
+            "en":"English"
+        }
+    },
+    "about":{
+        "developer":"Web developer",
+        "gitLabel":"Github account (click name to enter):",
+        "description":"This web app is an information app about football players from spanish La Liga, then there are two pages (authentication for use) where you can create your own players and line-up them on squads you can create for your purposes"
+    },
+    "menu":{
+        "home":"Home",
+        "login":"Login",
+        "myplayers":"My players",
+        "mysquads":"My squads",
+        "signout":"Sign out",
+        "about":"About"
+    },
+    "searcher-placeholder":"Search player",
+    "form":{
+        "mode": {
+            "createSquad":"Create Squad",
+            "createPlayer":"Create Player",
+            "editSquad":"Edit Squad",
+            "editPlayer":"Edit Player",
+            "create":"Create",
+            "save":"Save"
+        },
+        "placeholder":{
+            "name":"Write your name",
+            "click":"Click for choose",
+            "nation":"Write your nation"
+        }
+    }
+}

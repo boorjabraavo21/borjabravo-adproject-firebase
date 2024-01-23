@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button color="dark" fill="clear" (click)="onCancel()"><ion-icon slot="start" name="arrow-back-outline"></ion-icon></ion-button>
+    <ion-title *ngIf="mode=='New'">{{'form.mode.createSquad' | translate}}</ion-title>
+    <ion-title *ngIf="mode=='Edit'">{{'form.mode.editSquad' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
+    <ion-item>
+      <ion-input #nombre label="{{'player.nameLabel' | translate }}" placeholder="{{'form.placeholder.name' | translate}}" labelPlacement="fixed" type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item [button]="true" id="nested-trigger">
+      <ion-input #formacion type="text" [readonly]="true" label="{{'squad.lineUpLabel' | translate }}" labelPlacement="fixed" placeholder="{{'form.placeholder.click' | translate}}" formControlName="lineUp"></ion-input>
+    </ion-item>
+    <ion-popover #popover trigger="nested-trigger" side="end">
+      <ng-template>
+        <ion-list>
+          <ion-item (click)="onSelectLineUp(popover, formacion, '4-3-3')" >4-3-3</ion-item>
+          <ion-item (click)="onSelectLineUp(popover, formacion, '4-4-2')" >4-4-2</ion-item>
+          <ion-item (click)="onSelectLineUp(popover, formacion, '3-4-3')" >3-4-3</ion-item>
+        </ion-list>
+      </ng-template>
+    </ion-popover>
+    <ion-list *ngIf="formacion.value=='4-4-2'" formControlValue="players">
+      <div class="positions">
+        <app-player-card [player]="playersAdded[0]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 0)"></app-player-card>
+        <app-player-card [player]="playersAdded[1]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 1)"></app-player-card>
+      </div>
+      <div class="positions">
+        <app-player-card [player]="playersAdded[2]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 2)"></app-player-card>
+        <app-player-card [player]="playersAdded[3]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 3)"></app-player-card>
+        <app-player-card [player]="playersAdded[4]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 4)"></app-player-card>
+        <app-player-card [player]="playersAdded[5]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 5)"></app-player-card>
+      </div>
+      <div class="positions">
+        <app-player-card [player]="playersAdded[6]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 6)"></app-player-card>
+        <app-player-card [player]="playersAdded[7]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 7)"></app-player-card>
+        <app-player-card [player]="playersAdded[8]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 8)"></app-player-card>
+        <app-player-card [player]="playersAdded[9]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 9)"></app-player-card>
+      </div>
+      <div class="positions">
+        <app-player-card [player]="playersAdded[10]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 10)"></app-player-card>
+      </div>
+    </ion-list>
+    <ion-list *ngIf="formacion.value=='4-3-3'" formControlValue="players">
+      <div class="positions">
+        <app-player-card [player]="playersAdded[0]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 0)"></app-player-card>
+        <app-player-card [player]="playersAdded[1]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 1)"></app-player-card>
+        <app-player-card [player]="playersAdded[2]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 2)"></app-player-card>
+      </div>
+      <div class="positions">
+        <app-player-card [player]="playersAdded[3]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 3)"></app-player-card>
+        <app-player-card [player]="playersAdded[4]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 4)"></app-player-card>
+        <app-player-card [player]="playersAdded[5]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 5)"></app-player-card>
+      </div>
+      <div class="positions">
+        <app-player-card [player]="playersAdded[6]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 6)"></app-player-card>
+        <app-player-card [player]="playersAdded[7]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 7)"></app-player-card>
+        <app-player-card [player]="playersAdded[8]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 8)"></app-player-card>
+        <app-player-card [player]="playersAdded[9]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 9)"></app-player-card>
+      </div>
+      <div class="positions">
+        <app-player-card [player]="playersAdded[10]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 10)"></app-player-card>
+      </div>
+    </ion-list>
+    <ion-list *ngIf="formacion.value=='3-4-3'" formControlValue="players">
+      <div class="positions">
+        <app-player-card [player]="playersAdded[0]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 0)"></app-player-card>
+        <app-player-card [player]="playersAdded[1]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 1)"></app-player-card>
+        <app-player-card [player]="playersAdded[2]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 2)"></app-player-card>
+      </div>
+      <div class="positions">
+        <app-player-card [player]="playersAdded[3]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 3)"></app-player-card>
+        <app-player-card [player]="playersAdded[4]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 4)"></app-player-card>
+        <app-player-card [player]="playersAdded[5]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 5)"></app-player-card>
+        <app-player-card [player]="playersAdded[6]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 6)"></app-player-card>
+      </div>
+      <div class="positions">
+        <app-player-card [player]="playersAdded[7]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 7)"></app-player-card>
+        <app-player-card [player]="playersAdded[8]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 8)"></app-player-card>
+        <app-player-card [player]="playersAdded[9]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 9)"></app-player-card>
+      </div>
+      <div class="positions">
+        <app-player-card [player]="playersAdded[10]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 10)"></app-player-card>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-buttons>
+    <ion-button *ngIf="mode=='New'" [disabled]="!form.valid" (click)="onSubmit()">{{ 'form.mode.create' | translate }}</ion-button>
+    <ion-button *ngIf="mode=='Edit'" [disabled]="!form.valid" (click)="onSubmit()">{{ 'form.mode.save' | translate }}</ion-button>
+  </ion-buttons>
+</ion-footer>

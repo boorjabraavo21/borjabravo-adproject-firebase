@@ -1,0 +1,32 @@
+ion-card-content {
+    width: 250px;
+    height: 120px;
+    background-image: url("../../../../assets/field_background.jpg");
+    background-size: 250px 120px;
+}
+
+* {
+    color: white;
+}
+
+
+ion-buttons {
+    position: absolute;
+    right: 0;
+    top:0
+}
+
+@media (max-width: 990px) {
+    ion-card-content {
+      width: 200px;
+      background-size: 200px 120px;
+    }
+}
+
+@media (max-width: 450px) {
+    ion-card-content {
+        width: 150px;
+        height: 100px;
+        background-size: 150px 100px;
+    }
+}
