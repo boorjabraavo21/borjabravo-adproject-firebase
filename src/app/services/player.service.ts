@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
-import { PaginatedPlayers, Player } from '../interfaces/player';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Player } from '../interfaces/player';
 import { DataService } from './api/data.service';
 import { FirebaseService } from './firebase/firebase.service';
 
@@ -13,7 +13,6 @@ export class PlayerService {
   public players$ = this._players.asObservable()
 
   constructor(
-    private dataService:DataService,
     private fbSvc:FirebaseService
   ) { }
 
@@ -89,6 +88,8 @@ export class PlayerService {
     return new Observable<Player>(obs => {
       this.fbSvc.createDocument("players",player).then(_=>{
         this.getAll().subscribe()
+        obs.next(player)
+        obs.complete()
       }).catch(err => {
         obs.error(err)
       })
@@ -97,34 +98,20 @@ export class PlayerService {
 
   updatePlayer(player:Player):Observable<Player> {
     return new Observable<Player>(obs => {
-      this.fbSvc.updateDocument("players",player.id!!,player).then().catch(err => {
+      this.fbSvc.updateDocument("players",player.id!!,player).then(_=>{
+        obs.next(player)
+        obs.complete()
+      }).catch(err => {
         obs.error(err)
       })
     })
-    /*return this.dataService.put<any>(`players/${player.id}`,player).pipe(map(response => {
-      return {
-        id:response.id,
-        name:response.name,
-        position:response.position,
-        nation:response.nation,
-        age:response.age,
-        rating:response.rating,
-        team:response.team,
-        matches:response.matches,
-        numbers:response.numbers,
-        assists:response.assists,
-        picture:response.picture?.data?{
-          id: response.picture.data.id,
-          url_large: response.picture.data.attributes.formats.large?.url,
-          url_small: response.picture.data.attributes.formats.small?.url,
-          url_medium:response.picture.data.attributes.formats.medium?.url,
-          url_thumbnail:response.picture.data.attributes.formats.thumbnail?.url,
-        }:null
-      }
-    }))*/
   }
 
-  deletePlayer(player:Player):Observable<Player> {
-    return this.dataService.delete<any>(`players/${player.id}`).pipe(tap())
+  deletePlayer(player:Player):Observable<void> {
+    return new Observable<void>(obs => {
+      this.fbSvc.deleteDocument("players",player.id!!).then().catch(err => {
+        obs.error(err)
+      })
+    })
   }
 }

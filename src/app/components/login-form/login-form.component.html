@@ -5,7 +5,8 @@
   <ion-item>
     <ion-input labelPlacement="stacked" label="{{'login.pwd' | translate }}" formControlName="password" type="password"></ion-input>
   </ion-item>
-  <div class="ion-text-end">
+  <div id="botones" class="ion-text-end">
     <ion-button style="text-transform: none;" [disabled]="!form.valid" (click)="onSubmit()">{{'login.submit' | translate}}</ion-button>
+    <ion-button fill="clear" style="text-transform: none;" (click)="onSubmitAnonymously()">Acceder anónimamente</ion-button>
   </div>
 </form>

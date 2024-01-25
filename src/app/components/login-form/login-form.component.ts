@@ -15,6 +15,7 @@ export class LoginFormComponent  implements OnInit {
   }
 
   @Output() onsubmit = new EventEmitter<UserCredentials>()
+  @Output() onsubmitAnonymously = new EventEmitter<void>()
 
   constructor(
     private formBuilder:FormBuilder
@@ -33,4 +34,7 @@ export class LoginFormComponent  implements OnInit {
     this.form?.controls['password'].setValue('')
   }
 
+  onSubmitAnonymously() {
+    this.onsubmitAnonymously.emit()
+  }
 }

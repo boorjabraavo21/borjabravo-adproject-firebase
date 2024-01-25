@@ -23,11 +23,19 @@ export class LoginPage implements OnInit {
     this.auth.login(credentials).subscribe({
       next: () => {
         this.router.navigate(['/home'])
-        this.auth.isLogged$.subscribe(logged => {
-          console.log(logged)
-        })
       },
       error: (err: any) => {
+        console.log(err)
+      }
+    })
+  }
+
+  onLoginAnonymously() {
+    this.auth.loginAnonymously().subscribe({
+      next: () => {
+        this.router.navigate(['/home'])
+      },
+      error: (err:any) => {
         console.log(err)
       }
     })

@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { UserGuard } from './guards/user.guard';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+    canActivate:[AuthGuard]
   },
   {
     path: '',
@@ -14,28 +16,31 @@ const routes: Routes = [
   },
   {
     path: 'player-info/:id',
-    loadChildren: () => import('./pages/player-info/player-info.module').then( m => m.PlayerInfoPageModule)
+    loadChildren: () => import('./pages/player-info/player-info.module').then( m => m.PlayerInfoPageModule),
+    canActivate:[AuthGuard]
   },
   {
     path: 'mysquads',
     loadChildren: () => import('./pages/mysquads/mysquads.module').then( m => m.MySquadsPageModule),
-    canActivate:[AuthGuard]
+    canActivate:[AuthGuard, UserGuard]
   },
   {
     path: 'myplayers',
     loadChildren: () => import('./pages/myplayers/myplayers.module').then( m => m.MyplayersPageModule),
-    canActivate:[AuthGuard]
+    canActivate:[AuthGuard, UserGuard]
   },
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-  },  {
+  },
+  {
     path: 'register',
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
     path: 'about',
-    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule),
+    canActivate:[AuthGuard]
   },
 
 ];

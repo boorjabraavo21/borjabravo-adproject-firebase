@@ -33,7 +33,7 @@ export class AppComponent {
   
   onSignOut(menu:IonMenu){
     this.auth.logout().subscribe(async _=>{
-      await this.router.navigate(['/home']);
+      await this.router.navigate(['/login']);
       menu.close();
     });
   }

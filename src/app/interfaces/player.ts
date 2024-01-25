@@ -10,9 +10,9 @@ export interface Player {
     rating:number,
     team?:string,
     picture?:Media | null,
-    matches:number,
-    numbers:number,
-    assists:number
+    matches?:number,
+    numbers?:number,
+    assists?:number
 }
 
 export type PaginatedPlayers = PaginatedData<Player>

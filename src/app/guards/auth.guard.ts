@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, tap } from 'rxjs';
+import { FirebaseService } from '../services/firebase/firebase.service';
 import { AuthService } from '../services/api/auth.service';
 
 @Injectable({
@@ -13,12 +14,10 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.auth.isLogged$.pipe(tap(logged=>{
-        console.log(logged);
-        
-        if(!logged)
+      return this.auth.isConnected$.pipe(tap(connected=>{
+        if(!connected) {
           this.router.navigate(['/login']);
+        }
       }));
   }
-  
 }

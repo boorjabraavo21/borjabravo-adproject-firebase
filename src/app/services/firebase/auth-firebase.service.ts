@@ -11,18 +11,34 @@ export class AuthFirebaseService extends AuthService {
   constructor(
     private fbSvc:FirebaseService
   ) {
-    fbSvc.isLogged$.subscribe(connected => {
-      if(connected){
+    super();
+    this.fbSvc.isUserConnected().then(connected => {
+      if(connected) {
+        this._connected.next(true)
+        this.fbSvc.isLogged$.subscribe(logged => {
+          if(logged) {
+            this.me().subscribe(user => {
+              this._user.next(user)
+            })
+          }
+        })
+      }
+      else
+        this._connected.next(false)
+    })
+    /*this.fbSvc.isLogged$.subscribe(async logged => {
+      this.fbSvc.isUserConnected().then(connected => {
+        if(connected)
+          this._connected.next(true)
+        else
+          this._connected.next(false)
+      })
+      if(logged) {
         this.me().subscribe(user => {
           this._user.next(user)
-          this._logged.next(true)
         })
-      } else {
-        this._user.next(null)
-        this._logged.next(false)
       }
-    })
-    super();
+    })*/
   }
 
   public loginAnonymously():Observable<void> {
@@ -30,7 +46,7 @@ export class AuthFirebaseService extends AuthService {
       this.fbSvc.connectAnonymously().then(fn => {
         obs.next(fn)
         obs.complete()
-        this._logged.next(true)
+        this._connected.next(true)
       }).catch(err => {
         obs.error(err)
       })
@@ -43,7 +59,7 @@ export class AuthFirebaseService extends AuthService {
         const user_id = fbCredentials?.user.user.uid
         if(user_id) {
           const user = await lastValueFrom(this.me())
-          this._logged.next(true)
+          this._connected.next(true)
           this._user.next(user)
           obs.next(user)
           obs.complete()
@@ -59,7 +75,8 @@ export class AuthFirebaseService extends AuthService {
       this.fbSvc.signOut(false).then(fn =>{
         obs.next(fn)
         obs.complete()
-        this._logged.next(false)
+        this._connected.next(false)
+        this._user.next(null)
       }).catch(err => {
         obs.error(err)
       })
@@ -83,7 +100,7 @@ export class AuthFirebaseService extends AuthService {
         }
         this.fbSvc.createDocumentWithId("users", _extUserWithOutId, _user?.uid!!)
         this._user.next(_extendedUser)
-        this._logged.next(true)
+        this._connected.next(true)
         obs.next(_extendedUser)
         obs.complete()
       }).catch(err => {

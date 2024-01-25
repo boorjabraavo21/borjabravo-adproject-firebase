@@ -28,10 +28,6 @@ export class HomePage implements OnInit {
   }
 
   logout() {
-    this.auth.logout().subscribe(_=>{
-      this.auth.isLogged$.subscribe(logged => {
-        console.log(logged)
-      })
-    })
+    this.auth.logout().subscribe()
   }
 }

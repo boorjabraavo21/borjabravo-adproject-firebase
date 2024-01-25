@@ -9,12 +9,14 @@ import { User } from '../../interfaces/user';
 })
 export abstract class AuthService {
 
-  protected _logged = new BehaviorSubject<boolean>(true);
-  public isLogged$ = this._logged.asObservable();
+  protected _connected = new BehaviorSubject<boolean>(true);
+  public isConnected$ = this._connected.asObservable();
   protected _user = new BehaviorSubject<User|null>(null);
   public user$ = this._user.asObservable();
   
   public abstract login(credentials:Object):Observable<User>;
+
+  public abstract loginAnonymously():Observable<void>;
 
   public abstract register(info:Object):Observable<User>;
 
