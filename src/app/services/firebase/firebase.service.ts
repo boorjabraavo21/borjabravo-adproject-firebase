@@ -48,6 +48,10 @@ export class FirebaseService {
     return this._user
   }
 
+  public getAuth() {
+    return this._auth
+  }
+
   public isUserConnected():Promise<boolean>{
     const response = new Promise<boolean>(async (resolve, reject)=>{
         if(!this._auth)

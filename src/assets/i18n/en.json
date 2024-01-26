@@ -45,7 +45,7 @@
     },
     "header":{
         "user":{
-            "guest":"Guest",
+            "guest":"Anonymous",
             "profile":"My profile",
             "signout":"Sign out"
         },

@@ -37,8 +37,7 @@
     <ng-template>
       <ion-content>
         <ion-list>
-          <ion-item *ngIf="!nickname" [button]="true"[detail]="false" [routerLink]="['/login']"><ion-icon slot="start" name="log-in-outline"></ion-icon>{{'menu.login' | translate}}</ion-item>
-          <ion-item *ngIf="username && nickname" [button]="true" (click)="onSignout.emit()"[detail]="false"><ion-icon slot="start" name="exit-outline"></ion-icon>{{'header.user.signout' | translate}}</ion-item>
+          <ion-item [button]="true" (click)="onSignout.emit()"[detail]="false"><ion-icon slot="start" name="exit-outline"></ion-icon>{{'header.user.signout' | translate}}</ion-item>
         </ion-list>
       </ion-content>
     </ng-template>

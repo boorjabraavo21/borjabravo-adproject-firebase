@@ -45,7 +45,7 @@
     },
     "header":{
         "user":{
-            "guest":"Invitado",
+            "guest":"Anónimo",
             "profile":"Mi perfil",
             "signout":"Cerrar sesión"
         },

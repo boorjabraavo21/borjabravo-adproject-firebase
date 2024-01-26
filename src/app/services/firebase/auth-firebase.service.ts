@@ -12,33 +12,16 @@ export class AuthFirebaseService extends AuthService {
     private fbSvc:FirebaseService
   ) {
     super();
-    this.fbSvc.isUserConnected().then(connected => {
-      if(connected) {
-        this._connected.next(true)
-        this.fbSvc.isLogged$.subscribe(logged => {
-          if(logged) {
-            this.me().subscribe(user => {
-              this._user.next(user)
-            })
-          }
-        })
-      }
-      else
-        this._connected.next(false)
-    })
-    /*this.fbSvc.isLogged$.subscribe(async logged => {
-      this.fbSvc.isUserConnected().then(connected => {
-        if(connected)
-          this._connected.next(true)
-        else
-          this._connected.next(false)
-      })
+    fbSvc.isLogged$.subscribe(async logged => {
       if(logged) {
-        this.me().subscribe(user => {
-          this._user.next(user)
-        })
+        this._connected.next(true)
+        const _user = await lastValueFrom(this.me())
+        this._user.next(_user)
+      } else {
+        this._connected.next(false)
+        this._user.next(null)
       }
-    })*/
+    })
   }
 
   public loginAnonymously():Observable<void> {

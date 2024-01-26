@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { FirebaseService } from '../services/firebase/firebase.service';
 import { AuthService } from '../services/api/auth.service';
 
 @Injectable({

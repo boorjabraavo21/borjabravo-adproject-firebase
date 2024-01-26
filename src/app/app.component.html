@@ -23,7 +23,7 @@
       <ion-list *ngIf="(auth.isConnected$ | async) && !(auth.user$ | async)">
         <ion-item [color]="routeInclude('home')?'primary':''" (click)="close(menu)" [routerLink]="['/home']" button detail="false"><ion-icon slot="start" name="home"></ion-icon>{{ 'menu.home' | translate}}</ion-item>
         <ion-item [color]="routeInclude('about')?'primary':''" (click)="close(menu)" [routerLink]="['/about']" button detail="false"><ion-icon slot="start" name="information-circle-outline"></ion-icon>{{ 'menu.about' | translate }}</ion-item>
-        <ion-item [color]="routeInclude('login')?'primary':''" (click)="close(menu)" [routerLink]="['/login']" button detail="false"><ion-icon slot="start" name="log-in-outline"></ion-icon>{{ 'menu.login' | translate}}</ion-item>
+        <ion-item (click)="onSignOut(menu)" button detail="false"><ion-icon slot="start" name="log-out-outline"></ion-icon>{{ 'menu.signout' | translate}}</ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
@@ -38,7 +38,8 @@
     <app-header *ngIf="(auth.isConnected$ | async) && !(auth.user$ | async)"
       [languages]="['es','en']" 
       [languageSelected]="lang" 
-      (onLanguage)="onLang($event)"></app-header>
+      (onLanguage)="onLang($event)"
+      (onSignout)="onSignOut(menu)"></app-header>
     <ion-router-outlet></ion-router-outlet>
   </div>
   
