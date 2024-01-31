@@ -12,15 +12,15 @@ export class AuthFirebaseService extends AuthService {
     private fbSvc:FirebaseService
   ) {
     super();
-    fbSvc.isLogged$.subscribe(async logged => {
+    fbSvc.isLogged$.subscribe(logged => {
       if(logged) {
-        this._connected.next(true)
-        const _user = await lastValueFrom(this.me())
-        this._user.next(_user)
+        this.me().subscribe(user => {
+          this._user.next(user)
+        })
       } else {
-        this._connected.next(false)
         this._user.next(null)
       }
+      this._connected.next(logged)
     })
   }
 

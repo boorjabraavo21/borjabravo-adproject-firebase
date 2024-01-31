@@ -1,8 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
 import { FirebaseApp, getApp, initializeApp } from 'firebase/app';
 import { DocumentData, Firestore, Unsubscribe, addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, onSnapshot, query, setDoc, updateDoc, where } from 'firebase/firestore';
-import { Auth, User, UserCredential, createUserWithEmailAndPassword, deleteUser, indexedDBLocalPersistence, initializeAuth, signInAnonymously, signInWithEmailAndPassword } from 'firebase/auth';
+import { getStorage, ref, getDownloadURL, uploadBytes, FirebaseStorage } from "firebase/storage";
+import { Auth, User, UserCredential, createUserWithEmailAndPassword, deleteUser, indexedDBLocalPersistence, initializeAuth, signInAnonymously, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { BehaviorSubject } from 'rxjs';
+
+export interface FirebaseStorageFile{
+  path:string,
+  file:string
+};
 
 export interface FirebaseUserCredential{
   user:UserCredential
@@ -20,8 +26,9 @@ export class FirebaseService {
   private _app!: FirebaseApp
   private _db!: Firestore
   private _auth!: Auth
+  private _webStorage!:FirebaseStorage;
   private _user:User | null = null
-  private _isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  private _isLogged: BehaviorSubject<boolean|null> = new BehaviorSubject<boolean|null>(null)
   public isLogged$ = this._isLogged.asObservable()
 
   constructor(@Inject('firebase-config') config:any) { 
@@ -31,13 +38,12 @@ export class FirebaseService {
   public init(config:any) {
     this._app = initializeApp(config)
     this._db = getFirestore(this._app)
+    this._webStorage = getStorage(this._app);
     this._auth = initializeAuth(getApp(), { persistence: indexedDBLocalPersistence })
     this._auth.onAuthStateChanged(user => {
       this._user = user
       if(user) {
-        if(user.uid && user.email) {
-          this._isLogged.next(true)
-        }
+        this._isLogged.next(true)
       } else {
         this._isLogged.next(false)
       }
@@ -48,8 +54,49 @@ export class FirebaseService {
     return this._user
   }
 
-  public getAuth() {
-    return this._auth
+  public fileUpload(blob: Blob, mimeType:string, path:string, prefix:string, extension:string):Promise<FirebaseStorageFile>{
+    return new Promise(async (resolve, reject) => {
+        if(!this._webStorage || !this._auth)
+            reject({
+                msg: "Not connected to FireStorage"
+            });
+        var freeConnection = false;
+        if(this._auth && !this._auth.currentUser){
+            try {
+                await signInAnonymously(this._auth);
+                freeConnection = true;
+            } catch (error) {
+                reject(error);
+            }
+        }
+        const url = path+"/"+prefix+"-"+Date.now() + extension;
+        const storageRef = ref(this._webStorage!, url);
+        const metadata = {
+            contentType: mimeType,
+        };
+        uploadBytes(storageRef, blob).then(async (snapshot) => {
+            getDownloadURL(storageRef).then(async downloadURL => {
+              if(freeConnection)
+                  await signOut(this._auth!);
+              resolve({
+                  path,
+                  file: downloadURL,
+              });
+            }).catch(async error=>{
+              if(freeConnection)
+                  await signOut(this._auth!);
+              reject(error);
+            });
+        }).catch(async (error) => {
+            if(freeConnection)
+                await signOut(this._auth!);
+            reject(error);
+        });
+    });
+  }
+
+  public imageUpload(blob: Blob): Promise<any> {
+    return this.fileUpload(blob,'image/jpeg', 'images', 'image', ".jpg");
   }
 
   public isUserConnected():Promise<boolean>{

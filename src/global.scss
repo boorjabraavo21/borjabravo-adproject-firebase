@@ -61,3 +61,8 @@ ion-card {
     border-style: solid;
     border-radius: 10px;
 }
+
+ion-content.splash{
+    --background: url('./assets/fondo-squads.jpg') no-repeat center bottom fixed;
+    background-size: 100% 100%;
+}

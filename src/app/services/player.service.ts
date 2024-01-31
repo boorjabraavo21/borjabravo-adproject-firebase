@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Player } from '../interfaces/player';
-import { DataService } from './api/data.service';
 import { FirebaseService } from './firebase/firebase.service';
 
 @Injectable({
@@ -28,6 +27,7 @@ export class PlayerService {
             age:player.data['age'],
             rating:player.data['rating'],
             team:player.data['team'],
+            picture:player.data['picture'],
             matches:player.data['matches'],
             numbers:player.data['numbers'],
             assists:player.data['assists']
@@ -50,6 +50,7 @@ export class PlayerService {
           age:doc.data['age'],
           rating:doc.data['rating'],
           team:doc.data['team'],
+          picture:doc.data['picture'],
           matches:doc.data['matches'],
           numbers:doc.data['numbers'],
           assists:doc.data['assists']
@@ -71,6 +72,7 @@ export class PlayerService {
             age:player.data['age'],
             rating:player.data['rating'],
             team:player.data['team'],
+            picture:player.data['picture'],
             matches:player.data['matches'],
             numbers:player.data['numbers'],
             assists:player.data['assists']

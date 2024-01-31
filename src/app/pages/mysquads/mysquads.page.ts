@@ -3,7 +3,6 @@ import { ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { SquadFormComponent } from 'src/app/components/squad-components/squad-form/squad-form.component';
 import { Pagination } from 'src/app/interfaces/data';
-import { Player } from 'src/app/interfaces/player';
 import { Squad } from 'src/app/interfaces/squad';
 import { SquadService } from 'src/app/services/squad.service';
 
@@ -16,8 +15,6 @@ export class MySquadsPage implements OnInit {
 
   private _squads = new BehaviorSubject<Squad[]>([])
   public squads$ = this._squads.asObservable()
-  private _pagination = new BehaviorSubject<Pagination>({page:0, pageCount: 0, pageSize:0, total:0})
-  public pagination$ = this._pagination.asObservable()
   loading:boolean = false
   constructor(
     public squads:SquadService,
@@ -31,11 +28,9 @@ export class MySquadsPage implements OnInit {
 
   onLoadSquads(page:number = 0, refresh:any = null) {
     this.squads.query("").subscribe(response => {
-      this._squads.next(response.data)
-      this._pagination.next(response.pagination)
-
+      this._squads.next(response)
       if(refresh)
-      refresh.complete()
+        refresh.complete()
       this.loading = false
     })
   }

@@ -28,14 +28,14 @@
     </ion-content>
   </ion-menu>
   <div class="ion-page" id="main-content">
-    <app-header *ngIf="(auth.isConnected$ | async) && (auth.user$ | async)"
+    <app-header *ngIf="(auth.isConnected$ | async) && (auth.user$ | async) && !(routeInclude('splash') || routeInclude('login') || routeInclude('register'))"
       [nickname]="(auth.user$ | async)!.nickname"
       [username]="(auth.user$ | async)!.name + ' ' + (auth.user$ | async)!.surname"
       [languages]="['es','en']" 
       [languageSelected]="lang" 
       (onLanguage)="onLang($event)"
       (onSignout)="onSignOut(menu)"></app-header>
-    <app-header *ngIf="(auth.isConnected$ | async) && !(auth.user$ | async)"
+    <app-header *ngIf="(auth.isConnected$ | async) && !(auth.user$ | async) && !(routeInclude('splash') || routeInclude('login') || routeInclude('register'))"
       [languages]="['es','en']" 
       [languageSelected]="lang" 
       (onLanguage)="onLang($event)"

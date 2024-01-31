@@ -20,7 +20,7 @@ export class PlayerFormComponent  implements OnInit {
       this.form.controls['position'].setValue(_player.position)
       this.form.controls['nation'].setValue(_player.nation)
       this.form.controls['age'].setValue(_player.age)
-      this.form.controls['picture'].setValue(_player.picture?.url_thumbnail)
+      this.form.controls['picture'].setValue(_player.picture)
       this.form.controls['rating'].setValue(_player.rating)
     }
   }

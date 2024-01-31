@@ -1,5 +1,4 @@
 import { PaginatedData } from "./data"
-import { Media } from "./media"
 
 export interface Player {
     id?:string,
@@ -9,7 +8,7 @@ export interface Player {
     age:number,
     rating:number,
     team?:string,
-    picture?:Media | null,
+    picture?:string | null,
     matches?:number,
     numbers?:number,
     assists?:number
