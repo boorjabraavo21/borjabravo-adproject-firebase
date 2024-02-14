@@ -24,13 +24,12 @@ export class PlayerSearcherComponent  implements OnInit {
     public plySvc:PlayerService,
     private popover:PopoverController,
     private toast:ToastController
-  ) {
-  }
+  ) {}
 
   ngOnInit() {}
 
   onLoadPlayers(){
-    this.plySvc.query("").subscribe(_players => {
+    this.plySvc.players$.subscribe(_players => {
       this.players = _players
       this.showList = true
     })
@@ -42,13 +41,13 @@ export class PlayerSearcherComponent  implements OnInit {
 
   private filter(value:string) {
     const query = value
-    this.plySvc.query("").subscribe(_players => {
-      this.players = _players.filter(p => p.name.toLowerCase().includes(query))
+    this.plySvc.players$.subscribe(_players => {
+      this.players = _players.filter(p => p.playerName.toLowerCase().includes(query))
     })
   }
 
   onPlayerClick(player:Player){
-    const _player = this.playersSelected.find(p => p?.id == player.id)
+    const _player = this.playersSelected.find(p => p?.idPlayer == player.idPlayer)
     if (_player) {
       const options:ToastOptions = {
         message:`This player has been selected`,

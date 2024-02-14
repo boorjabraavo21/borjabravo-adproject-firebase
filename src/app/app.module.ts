@@ -18,10 +18,10 @@ import { HttpClientProvider } from './services/http/http-client.provider';
 import { AuthService } from './services/api/auth.service';
 import { DataService } from './services/api/data.service';
 import { AuthFirebaseService } from './services/firebase/auth-firebase.service';
-import { MediaStrapiService } from './services/api/strapi/media-strapi.service';
 import { MediaService } from './services/api/media.service';
 import { environment } from 'src/environments/environment';
 import { FirebaseService } from './services/firebase/firebase.service';
+import { MediaFirebaseService } from './services/firebase/media-firebase.service';
 
 export function DataServiceFactory(
   api:ApiService){
@@ -34,8 +34,8 @@ export function httpProviderFactory(
 }
 
 export function MediaServiceFactory(
-  api:ApiService){
-  return new MediaStrapiService(api);
+  fb:FirebaseService){
+  return new MediaFirebaseService(fb);
 }
 
 export function AuthServiceFactory(
@@ -79,7 +79,7 @@ export function AuthServiceFactory(
     },
     {
       provide: MediaService,
-      deps: [ApiService],
+      deps: [FirebaseService],
       useFactory: MediaServiceFactory
     },
     {

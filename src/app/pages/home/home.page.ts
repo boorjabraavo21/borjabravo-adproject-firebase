@@ -23,7 +23,7 @@ export class HomePage implements OnInit {
   ngOnInit(): void {}
 
   toPlayerPage(player:Player) {
-    this.router.navigate(['/player-info', player.id])
+    this.router.navigate(['/player-info', player.idPlayer])
     this.onPlayerClicked.emit(player)
   }
 

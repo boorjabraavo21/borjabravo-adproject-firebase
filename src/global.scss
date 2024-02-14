@@ -26,7 +26,7 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 * {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .squad-modal {
@@ -34,6 +34,7 @@
     --height:100%;
     --width:800px;
 }
+
 
 .red-toast {
     font-size:1.1rem;
@@ -47,8 +48,7 @@
 
 ion-content.offset-header{
     --padding-top:55px;
-    --background: url('./assets/fondo-squads.jpg') no-repeat center bottom fixed;
-    background-size: 100% 100%;
+    --background: rgb(28, 40, 88);
 }
 
 .highlight {
@@ -60,9 +60,4 @@ ion-content.offset-header{
 ion-card {
     border-style: solid;
     border-radius: 10px;
-}
-
-ion-content.splash{
-    --background: url('./assets/fondo-squads.jpg') no-repeat center bottom fixed;
-    background-size: 100% 100%;
 }

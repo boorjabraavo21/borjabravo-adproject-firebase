@@ -1,8 +1,8 @@
 import { PaginatedData } from "./data"
 
 export interface Player {
-    id?:string,
-    name:string,
+    idPlayer?:string,
+    playerName:string,
     position:'FW' | 'MF' | 'DF' | 'GK',
     nation:string,
     age:number,

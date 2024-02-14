@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonInput, IonItem, IonPopover, ModalController } from '@ionic/angular';
+import { IonInput, IonPopover, ModalController } from '@ionic/angular';
 import { Player } from 'src/app/interfaces/player';
 
 @Component({
@@ -15,8 +15,8 @@ export class PlayerFormComponent  implements OnInit {
   @Input('player') set player(_player:Player|null) {
     if(_player) {
       this.mode = 'Edit'
-      this.form.controls['id'].setValue(_player.id)
-      this.form.controls['name'].setValue(_player.name)
+      this.form.controls['idPlayer'].setValue(_player.idPlayer)
+      this.form.controls['playerName'].setValue(_player.playerName)
       this.form.controls['position'].setValue(_player.position)
       this.form.controls['nation'].setValue(_player.nation)
       this.form.controls['age'].setValue(_player.age)
@@ -29,8 +29,8 @@ export class PlayerFormComponent  implements OnInit {
     private modal:ModalController
   ) { 
     this.form = this.formB.group({
-      id:[null],
-      name:['',[Validators.required]],
+      idPlayer:[null],
+      playerName:['',[Validators.required]],
       age:[0,[Validators.required]],
       position:['',[Validators.required]],
       nation:['',[Validators.required]],

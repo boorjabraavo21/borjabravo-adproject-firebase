@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
-import { PaginatedSquads, Squad } from '../interfaces/squad';
-import { FirebaseService } from './firebase/firebase.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Squad } from '../interfaces/squad';
+import { FirebaseDocument, FirebaseService } from './firebase/firebase.service';
+import { Player } from '../interfaces/player';
+import { Unsubscribe } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -10,172 +12,112 @@ export class SquadService {
 
   private _squads = new BehaviorSubject<Squad[]>([])
   public squads$ = this._squads.asObservable()
+  private unsubscr:Unsubscribe|null = null;
 
   constructor(
     private fbSvc:FirebaseService
-  ) { }
+  ) { 
+    this.unsubscr = this.fbSvc.subscribeToCollection('squads', this._squads, this.mapSquads);
+  }
+
+  mapSquads(el:FirebaseDocument):Squad {
+    return {
+      id:el.id,
+      name:el.data['name'],
+      lineUp:el.data['lineUp'],
+      overall:el.data['overall'],
+      players:el.data['players'].map((player:Player) => {
+        return {
+          idPlayer:player.idPlayer,
+          playerName:player.playerName,
+          position:player.position,
+          rating:player.rating,
+          picture:player.picture
+        }
+      })
+    }
+  }
 
   addSquad(squad:Squad):Observable<Squad> {
-    return new Observable<Squad>;
-    /*delete squad.id
-    return this.dataSvc.post<Squad>("squads",squad).pipe(tap(_=>{
-      this.getAll().subscribe()
-    }))*/
-  }
-
-  getAll():Observable<Squad[]> {
-    return new Observable<Squad[]>(obs => {
-      this.fbSvc.getDocuments("squads").then(docs => {
-        var squads:any[] = docs.map(squad => {
-          return {
-            id:squad.id,
-            name:squad.data['name'],
-            lineUp:squad.data['lineUp'],
-            players:squad.data
-          }
-        })
+    delete squad.id
+    squad.players = squad.players.map (player => {
+      const _player:any = {
+        idPlayer:player.idPlayer,
+        playerName:player.playerName,
+        position:player.position,
+        rating:player.rating,
+        picture:player.picture
+      }
+      return _player
+    })
+    return new Observable<Squad>(obs => {
+      this.fbSvc.createDocument("squads",squad).then(_=>{
+        this.unsubscr = this.fbSvc.subscribeToCollection('squads', this._squads, this.mapSquads);
+        obs.next(squad)
+        obs.complete
+      }).catch(err => {
+        obs.error(err)
       })
     })
-    /*return this.dataSvc.query<any>("squads?populate[players][populate][0]=picture",{}).pipe(map(response => {
-      return {
-        data:response.data.map(squad => {
-          return {
-            id:squad.id,
-            name:squad.name,
-            lineUp:squad.lineUp,
-            players:squad.players.data.map((player:any) => {
-              return {
-                id:player.id,
-                name:player.attributes.name,
-                position:player.attributes.position,
-                nation:player.attributes.nation,
-                age:player.attributes.age,
-                rating:player.attributes.rating,
-                team:player.attributes.team,
-                matches:player.attributes.matches,
-                numbers:player.attributes.numbers,
-                assists:player.attributes.assists,
-                picture:player.attributes.picture?.data?{
-                  id: player.attributes.picture.data.id,
-                  url_large: player.attributes.picture.data.attributes.formats.large?.url,
-                  url_small: player.attributes.picture.data.attributes.formats.small?.url,
-                  url_medium:player.attributes.picture.data.attributes.formats.medium?.url,
-                  url_thumbnail:player.attributes.picture.data.attributes.formats.thumbnail?.url,
-                }:null
-              }
-            })
-          }
-        }),
-        pagination:response.pagination
-      }
-    }), tap(squads =>{
-      this._squads.next(squads)
-    }))*/
   }
 
-  query(q:string):Observable<Squad[]> {
-    return new Observable
-    /*return this.dataSvc.query<any>("squads?populate[players][populate][0]=picture", {}).pipe(map(response => {
-      return {
-        data:response.data.map(squad => {
-          return {
-            id:squad.id,
-            name:squad.name,
-            lineUp:squad.lineUp,
-            players:squad.players.data.map((player:any) => {
-              return {
-                id:player.id,
-                name:player.attributes.name,
-                position:player.attributes.position,
-                nation:player.attributes.nation,
-                age:player.attributes.age,
-                rating:player.attributes.rating,
-                team:player.attributes.team,
-                matches:player.attributes.matches,
-                numbers:player.attributes.numbers,
-                assists:player.attributes.assists,
-                picture:player.attributes.picture?.data?{
-                  id: player.attributes.picture.data.id,
-                  url_large: player.attributes.picture.data.attributes.formats.large?.url,
-                  url_small: player.attributes.picture.data.attributes.formats.small?.url,
-                  url_medium:player.attributes.picture.data.attributes.formats.medium?.url,
-                  url_thumbnail:player.attributes.picture.data.attributes.formats.thumbnail?.url,
-                }:null
-              }
-            })
-          }
-        }),
-        pagination:response.pagination
-      }
-    }))*/
-  }
-
-  getSquad(id:number):Observable<Squad> {
-    return new Observable
-    /*return this.dataSvc.get<any>(`squads/${id}?populate[players][populate][0]=picture`).pipe(map(squad => {
-      return {
-        id:squad.id,
-        name:squad.name,
-        lineUp:squad.lineUp,
-        players:squad.players.data.map((player:any) => {
-          return {
-            id:player.id,
-            name:player.attributes.name,
-            position:player.attributes.position,
-            nation:player.attributes.nation,
-            age:player.attributes.age,
-            rating:player.attributes.rating,
-            team:player.attributes.team,
-            matches:player.attributes.matches,
-            numbers:player.attributes.numbers,
-            assists:player.attributes.assists,
-            picture:player.attributes.picture?.data?{
-              id: player.attributes.picture.data.id,
-              url_large: player.attributes.picture.data.attributes.formats.large?.url,
-              url_small: player.attributes.picture.data.attributes.formats.small?.url,
-              url_medium:player.attributes.picture.data.attributes.formats.medium?.url,
-              url_thumbnail:player.attributes.picture.data.attributes.formats.thumbnail?.url,
-            }:null
-          }
-        })
-      }
-    }))*/
+  getSquad(id:string):Observable<Squad> {
+    return new Observable<Squad>(squad => {
+      this.fbSvc.getDocument("squads",id).then(doc => {
+        const data:Squad = this.mapSquads(doc)
+        squad.next(data)
+        squad.complete()
+      })
+    })
   }
 
   updateSquad(squad:Squad):Observable<Squad> {
-    return new Observable
-    /*return this.dataSvc.put<any>(`squads/${squad.id}?populate[players][populate][0]=picture`,squad).pipe(map(squad => {
-      return {
-        id:squad.id,
-        name:squad.name,
-        lineUp:squad.lineUp,
-        players:squad.players.data.map((player:any) => {
-          return {
-            id:player.id,
-            name:player.attributes.name,
-            position:player.attributes.position,
-            nation:player.attributes.nation,
-            age:player.attributes.age,
-            rating:player.attributes.rating,
-            team:player.attributes.team,
-            matches:player.attributes.matches,
-            numbers:player.attributes.numbers,
-            assists:player.attributes.assists,
-            picture:player.attributes.picture?.data?{
-              id: player.attributes.picture.data.id,
-              url_large: player.attributes.picture.data.attributes.formats.large?.url,
-              url_small: player.attributes.picture.data.attributes.formats.small?.url,
-              url_medium:player.attributes.picture.data.attributes.formats.medium?.url,
-              url_thumbnail:player.attributes.picture.data.attributes.formats.thumbnail?.url,
-            }:null
-          }
-        })
+    squad.players = squad.players.map (player => {
+      const _player:any = {
+        idPlayer:player.idPlayer,
+        playerName:player.playerName,
+        position:player.position,
+        rating:player.rating,
+        picture:player.picture
       }
-    }))*/
+      return _player
+    })
+    return new Observable<Squad>(obs => {
+      this.fbSvc.updateDocument("squads", squad.id!!, squad).then(_=>{
+        this.unsubscr = this.fbSvc.subscribeToCollection('squads', this._squads, this.mapSquads);
+        obs.next(squad)
+        obs.complete()
+      }).catch(err => {
+        obs.error(err)
+      })
+    })
   }
 
-  deleteSquad(squad:Squad):Observable<Squad> {
-    return new Observable
-    //return this.dataSvc.delete<Squad>(`squads/${squad.id}`).pipe(tap())
+  updatePlayerInSquad(player:Player):Observable<Squad> {
+    return new Observable<Squad>(obs => {
+      this._squads.subscribe(squads => {
+        squads.map(squad => {
+          const index = squad.players.findIndex(p => p.idPlayer == player.idPlayer)
+          if(index > 0) {
+            const _players = [...squad.players]
+            squad.players = [..._players.slice(0,index),..._players.slice(index+1)]
+            squad.players[index] = player
+            this.updateSquad(squad).subscribe()
+          }
+          obs.next(squad)
+          obs.complete()
+        })
+      })
+    })
+  }
+
+  deleteSquad(squad:Squad):Observable<void> {
+    return new Observable<void>(obs => {
+      this.fbSvc.deleteDocument("squads", squad.id!!).then(_ => {
+        this.unsubscr = this.fbSvc.subscribeToCollection('squads', this._squads, this.mapSquads);
+      }).catch(err => {
+        obs.error(err)
+      })
+    })
   }
 }

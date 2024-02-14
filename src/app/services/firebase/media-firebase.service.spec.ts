@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MediaStrapiService } from './media-strapi.service';
+import { MediaFirebaseService } from './media-firebase.service';
 
-describe('MediaStrapiService', () => {
-  let service: MediaStrapiService;
+describe('MediaFirebaseService', () => {
+  let service: MediaFirebaseService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(MediaStrapiService);
+    service = TestBed.inject(MediaFirebaseService);
   });
 
   it('should be created', () => {

@@ -9,7 +9,7 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
     <app-picture-selectable formControlName="picture"></app-picture-selectable>
     <ion-item>
-      <ion-input label="{{'player.nameLabel' | translate }}" placeholder="{{'form.placeholder.name' | translate}}" labelPlacement="fixed" type="text" formControlName="name"></ion-input>
+      <ion-input label="{{'player.nameLabel' | translate }}" placeholder="{{'form.placeholder.name' | translate}}" labelPlacement="fixed" type="text" formControlName="playerName"></ion-input>
     </ion-item>
     <ion-item [button]="true" id="nested-trigger">
       <ion-input #posicion [readonly]="true" label="{{'player.positionLabel' | translate }}" labelPlacement="fixed" placeholder="{{'form.placeholder.click' | translate}}" formControlName="position" type="text"></ion-input>

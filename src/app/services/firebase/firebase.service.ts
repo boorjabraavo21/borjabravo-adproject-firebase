@@ -233,7 +233,8 @@ export class FirebaseService {
                 });
         const collectionRef = collection(this._db!, collectionName);
         updateDoc(doc(collectionRef,document),data).then(docRef => resolve()
-        ).catch(err =>  reject(err));
+        ).catch(err =>  {reject(err)
+        console.log(err)});
     });
   }
 
@@ -291,11 +292,12 @@ export class FirebaseService {
     });
   }
 
-  public subscribeToCollection(collectionName:string, subject: BehaviorSubject<any[]>, mapFunction:(el:DocumentData)=>any):Unsubscribe | null{
+  public subscribeToCollection(collectionName:string, subject: BehaviorSubject<any[]>, mapFunction:(el:FirebaseDocument)=>any):Unsubscribe | null{
     if(!this._db)
         return null;
     return onSnapshot(collection(this._db, collectionName), (snapshot) => {
-      subject.next(snapshot.docs.map<any>(doc=>mapFunction(doc)));
-      }, error=>{});
+      subject.next(snapshot.docs.map<FirebaseDocument>(doc=>{
+        return {id:doc.id, data:doc.data()}}).map(mapFunction));
+    }, error=>{});
   }
 }

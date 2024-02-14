@@ -9,10 +9,12 @@ import { Squad } from 'src/app/interfaces/squad';
 })
 export class SquadComponent  implements OnInit {
 
-  @Input() squad:Squad | null = null
+  @Input() squad:Squad | undefined
+  players:Player[] | undefined
   @Output() onEditClicked:EventEmitter<void> = new EventEmitter<void>()
   @Output() onDeleteSquad:EventEmitter<void> = new EventEmitter<void>()
-  constructor() { }
+  constructor() { 
+  }
 
   onEditClick(ev:Event) {
     ev.stopPropagation()
@@ -24,6 +26,9 @@ export class SquadComponent  implements OnInit {
     this.onDeleteSquad.emit()
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.players = this.squad?.players
+    console.log(this.players)
+  }
 
 }
