@@ -9,6 +9,11 @@ ion-card-content {
     color: white;
 }
 
+ion-card {
+    transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+}
+
 
 ion-buttons {
     position: absolute;

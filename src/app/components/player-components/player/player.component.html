@@ -1,23 +1,26 @@
 <ion-card appHighlight (click)="onEditClick($event)">
-  <ion-card-subtitle>{{player?.rating}}</ion-card-subtitle>
-  <ion-card-subtitle>{{player?.position}}</ion-card-subtitle>
-  <ion-buttons>
-    <ion-button (click)="onDeleteClick($event)"><ion-icon name="trash-outline"></ion-icon></ion-button>
-  </ion-buttons>
-  <ion-card-header>
-    <div class="card-header">
-      <ion-avatar>
-        <img *ngIf="player" alt="Player photo"  [src]="player.picture" />
-      </ion-avatar>
-      <div>
+  <div id="interior">
+    <ion-buttons>
+      <ion-button (click)="onDeleteClick($event)"><ion-icon name="trash-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-avatar>
+      <img *ngIf="player && player.picture" alt="Player photo"  [src]="player.picture" />
+      <img *ngIf="!player?.picture" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+    </ion-avatar>
+    <div id="datos">
+      <ion-card-header>
         <ion-card-title>{{player?.playerName}}</ion-card-title>
-      </div>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="space-datos">
+          <ion-card-subtitle>{{ 'player.ratingLabel' | translate }}: {{player?.rating}}</ion-card-subtitle>
+          <ion-card-subtitle>{{ 'player.positionLabel' | translate }}: {{player?.position}}</ion-card-subtitle>
+        </div>
+        <div class="space-datos">
+          <ion-card-subtitle>{{ 'player.ageLabel' | translate }}: {{player?.age}} {{'player.yearsLabel' | translate}}</ion-card-subtitle>
+          <ion-card-subtitle>{{ 'player.nationLabel' | translate }}: {{player?.nation}}</ion-card-subtitle>
+        </div>
+      </ion-card-content>
     </div>
-  </ion-card-header>
-  <ion-card-content>
-    <div>
-      <ion-label *ngIf="player">{{player.age}} {{'player.yearsLabel' | translate}}</ion-label>
-      <ion-label>{{player?.nation}}</ion-label>
-    </div>
-  </ion-card-content>
+  </div>
 </ion-card>

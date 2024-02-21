@@ -2,8 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PlayerService } from '../../services/player.service';
 import { Router } from '@angular/router';
 import { Player } from 'src/app/interfaces/player';
-import { BehaviorSubject } from 'rxjs';
-import { Pagination } from 'src/app/interfaces/data';
 import { AuthService } from 'src/app/services/api/auth.service';
 
 @Component({
@@ -14,13 +12,23 @@ import { AuthService } from 'src/app/services/api/auth.service';
 export class HomePage implements OnInit {
 
   @Output() onPlayerClicked = new EventEmitter()
+  showList:boolean = false
   constructor(
     public players:PlayerService,
     private auth:AuthService,
-    private router:Router
-  ) {}
+    private router:Router,
+  ) {
+  }
 
   ngOnInit(): void {}
+
+  ionViewDidLeave(){
+    this.closeList()
+  }
+
+  closeList(state:boolean = false) {
+    this.showList = state
+  }
 
   toPlayerPage(player:Player) {
     this.router.navigate(['/player-info', player.idPlayer])

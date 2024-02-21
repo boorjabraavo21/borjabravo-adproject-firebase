@@ -35,6 +35,13 @@
     --width:800px;
 }
 
+ion-content.components {
+    --background: #151f2e;
+}
+
+ion-item.card-item {
+    --background:#163e71;
+}
 
 .red-toast {
     font-size:1.1rem;
@@ -52,12 +59,18 @@ ion-content.offset-header{
 }
 
 .highlight {
-    -webkit-box-shadow: 0px 0px 10px 5px goldenrod;
-    -moz-box-shadow: 0px 0px 10px 5px goldenrod;
-    box-shadow: 0px 0px 10px 5px goldenrod;
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -webkit-box-shadow: 0px 0px 10px 5px rgb(67, 130, 217);
+    -moz-box-shadow: 0px 0px 10px 5px rgb(67, 130, 217);
+    box-shadow: 0px 0px 10px 5px rgb(67, 130, 217);
 }
 
 ion-card {
     border-style: solid;
     border-radius: 10px;
+}
+
+ion-content.splash {
+    --background: rgb(28, 40, 88);
 }

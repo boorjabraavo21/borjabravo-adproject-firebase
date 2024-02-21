@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, lastValueFrom, map } from 'rxjs';
 import { Squad } from '../interfaces/squad';
 import { FirebaseDocument, FirebaseService } from './firebase/firebase.service';
 import { Player } from '../interfaces/player';
@@ -95,16 +95,15 @@ export class SquadService {
 
   updatePlayerInSquad(player:Player):Observable<Squad> {
     return new Observable<Squad>(obs => {
-      this._squads.subscribe(squads => {
-        squads.map(squad => {
+      this.fbSvc.getDocuments('squads').then(docs => {
+        docs.map (doc => {
+          const squad = this.mapSquads(doc)
           const index = squad.players.findIndex(p => p.idPlayer == player.idPlayer)
-          if(index > 0) {
-            const _players = [...squad.players]
-            squad.players = [..._players.slice(0,index),..._players.slice(index+1)]
+          if(index > -1) {
             squad.players[index] = player
             this.updateSquad(squad).subscribe()
+            obs.next(squad)
           }
-          obs.next(squad)
           obs.complete()
         })
       })

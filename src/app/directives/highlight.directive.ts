@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 
 @Directive({
   standalone: false,
@@ -6,13 +6,6 @@ import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/
 })
 export class HighlightDirective {
 
-  private _color:string = "transparent";
-  @Input() set appHighLight(color:string){
-    this._color = color;
-  }
-  get appHighLight():string{
-    return this._color;
-  }
   constructor(
     private renderer:Renderer2,
     private el:ElementRef

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthService } from './services/api/auth.service';
 import { Router } from '@angular/router';
 import { IonMenu } from '@ionic/angular';
@@ -11,7 +11,7 @@ import { CustomTranslateService } from './services/custom-translate.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-
+  
   lang:string = "es"
   constructor(
     public translate:CustomTranslateService,

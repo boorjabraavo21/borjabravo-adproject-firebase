@@ -77,8 +77,8 @@ export class MyplayersPage implements OnInit {
           this.loading = true
           if (info.data.picture) {
             this.dataURLtoBlob(info.data.picture, (blob: Blob) => {
-              this.mediaSvc.upload(blob).subscribe((media: number[]) => {
-                info.data.picture = media[0]
+              this.mediaSvc.upload(blob).subscribe((media: any) => {
+                info.data.picture = media.file
                 this.playerSvc.addPlayer(info.data).subscribe(_=>{ 
                   this.onLoadPlayers()
                 })
@@ -112,7 +112,6 @@ export class MyplayersPage implements OnInit {
             if(_picture.substring(0,4) == 'data') {
               this.dataURLtoBlob(info.data.picture, (blob: Blob) => {
                 this.mediaSvc.upload(blob).subscribe((media: any) => {
-                  //info.data.picture = media[0]
                   let _player = { idPlayer: player.idPlayer, ...info.data }
                   _player.picture = media.file
                   console.log(_player)
@@ -126,7 +125,7 @@ export class MyplayersPage implements OnInit {
               player = info.data
               this.playerSvc.updatePlayer(player).subscribe(p=>{
                 this.onLoadPlayers();
-                //this.squadSvc.updatePlayerInSquad(p).subscribe()
+                this.squadSvc.updatePlayerInSquad(p).subscribe()
               })
             }
           } else if (info.data.picture == null || info.data.picture == "") {

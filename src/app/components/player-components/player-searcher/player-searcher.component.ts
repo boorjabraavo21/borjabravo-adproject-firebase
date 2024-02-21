@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PopoverController, ToastController, ToastOptions } from '@ionic/angular';
-import { lastValueFrom } from 'rxjs';
-import { Pagination } from 'src/app/interfaces/data';
+import { AppComponent } from 'src/app/app.component';
 import { Player } from 'src/app/interfaces/player';
 import { PlayerService } from 'src/app/services/player.service';
 
@@ -19,19 +18,22 @@ export class PlayerSearcherComponent  implements OnInit {
   @Input() originalPlayers:boolean = false
   @Input() player:Player | null = null
   @Output() onPlayerClicked = new EventEmitter()
-  showList = false
+  @Input() showList:boolean = false
+  @Output() sendStateList = new EventEmitter()
   constructor(
     public plySvc:PlayerService,
     private popover:PopoverController,
     private toast:ToastController
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   onLoadPlayers(){
     this.plySvc.players$.subscribe(_players => {
       this.players = _players
       this.showList = true
+      this.sendStateList.emit(true)
     })
   }
 
@@ -61,6 +63,7 @@ export class PlayerSearcherComponent  implements OnInit {
       this.onPlayerClicked.emit(player)
       this.popover.dismiss(player,"ok")
       this.showList = false
+      this.sendStateList.emit(false)
     }
   }
 }
