@@ -9,8 +9,10 @@
       </div>
       <div class="info">
         <h2>{{ 'player.ageLabel' | translate }}: {{player?.age}}</h2>
-        <h2>{{ 'player.teamLabel' | translate }}: {{player?.team}}</h2>
         <h2>{{ 'player.nationLabel' | translate }}: {{player?.nation}}</h2>
+      </div>
+      <div class="info">
+        <h2>{{ 'player.teamLabel' | translate }}: {{player?.team}}</h2>
       </div>
       <h3>{{ 'player.statsLabel' | translate }} (2022/2023):</h3>
       <div *ngIf="player?.position != 'GK'">
@@ -21,6 +23,11 @@
       <div *ngIf="player?.position == 'GK'">
         <p>{{ 'player.matchesLabel' | translate}}: {{player?.matches}}</p>
         <p>{{ 'player.cleanSheetsLabel' | translate}}: {{player?.numbers}}</p>
+      </div>
+      <div>
+        <ion-buttons>
+          <ion-button (click)="openPlayerHighlights()">{{ 'player.watchHighlights'  | translate }}</ion-button>
+        </ion-buttons>
       </div>
     </div>
   </div>

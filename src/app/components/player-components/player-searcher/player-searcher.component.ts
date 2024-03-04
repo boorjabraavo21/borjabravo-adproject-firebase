@@ -52,12 +52,12 @@ export class PlayerSearcherComponent  implements OnInit {
     const _player = this.playersSelected.find(p => p?.idPlayer == player.idPlayer)
     if (_player) {
       const options:ToastOptions = {
-        message:`This player has been selected`,
+        message:`Este jugador ya ha sido seleccionado`,
         duration:1000,
         position:'bottom',
         color:'danger',
         cssClass:'red-toast'
-        }
+      }
       this.toast.create(options).then(toast=>toast.present())
     } else {
       this.onPlayerClicked.emit(player)

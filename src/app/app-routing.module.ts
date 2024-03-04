@@ -20,12 +20,12 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path: 'mysquads',
+    path: 'squads',
     loadChildren: () => import('./pages/mysquads/mysquads.module').then( m => m.MySquadsPageModule),
     canActivate:[AuthGuard, UserGuard]
   },
   {
-    path: 'myplayers',
+    path: 'players',
     loadChildren: () => import('./pages/myplayers/myplayers.module').then( m => m.MyplayersPageModule),
     canActivate:[AuthGuard, UserGuard]
   },
@@ -41,7 +41,8 @@ const routes: Routes = [
     path: 'about',
     loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule),
     canActivate:[AuthGuard]
-  },  {
+  },
+  {
     path: 'splash',
     loadChildren: () => import('./pages/splash/splash.module').then( m => m.SplashPageModule)
   },

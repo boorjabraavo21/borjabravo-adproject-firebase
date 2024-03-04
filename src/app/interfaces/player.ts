@@ -11,7 +11,8 @@ export interface Player {
     picture?:string | null,
     matches?:number,
     numbers?:number,
-    assists?:number
+    assists?:number,
+    highlights?:string
 }
 
 export type PaginatedPlayers = PaginatedData<Player>

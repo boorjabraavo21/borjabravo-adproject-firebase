@@ -25,7 +25,7 @@
     <ion-item>
       <ion-input type="text" [readonly]="true" label="Valoración" labelPlacement="fixed" formControlName="overall"></ion-input>
     </ion-item>
-    <!-- <ion-list *ngIf="formacion.value=='4-4-2'" formControlValue="players">
+    <ion-list *ngIf="formacion.value=='4-4-2'" formControlValue="players">
       <div class="positions">
         <app-player-card [player]="playersAdded[0]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 0)"></app-player-card>
         <app-player-card [player]="playersAdded[1]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 1)"></app-player-card>
@@ -86,12 +86,6 @@
       </div>
       <div class="positions">
         <app-player-card [player]="playersAdded[10]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 10)"></app-player-card>
-      </div>
-    </ion-list> -->
-    <ion-list>
-      <div class="positions">
-        <app-player-card [player]="playersAdded[0]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 0)"></app-player-card>        
-        <app-player-card [player]="playersAdded[1]" [pAdded]="playersAdded" (onPlayerSelected)="onAddPlayer($event, 1)"></app-player-card>
       </div>
     </ion-list>
   </form>

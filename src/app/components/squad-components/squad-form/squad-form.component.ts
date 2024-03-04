@@ -13,6 +13,7 @@ import { PlayerService } from 'src/app/services/player.service';
 export class SquadFormComponent  implements OnInit {
 
   playersAdded:Player[] = []
+  countPlayers:number = 0
   form:FormGroup
   mode:'Edit' | 'New' = 'New'
   lineUp: string | undefined
@@ -69,9 +70,13 @@ export class SquadFormComponent  implements OnInit {
       const _players = [...this.playersAdded]
       this.playersAdded = [..._players.slice(0,index),..._players.slice(index+1)]
     }
+    if(!this.playersAdded[index]) {
+      this.countPlayers++;
+    }
     this.playersAdded[index] = player!!
     console.log(this.playersAdded)
-    if (this.playersAdded.length == 2)
+    console.log(this.countPlayers)
+    if (this.countPlayers == 11)
       this.form.controls['players'].setValue(this.playersAdded)
     this.form.controls['overall'].setValue(this.calculateOverall())
   }
@@ -80,10 +85,12 @@ export class SquadFormComponent  implements OnInit {
     this.form.controls['overall'].setValue(0)
     var overall = this.form.controls['overall'].value
     this.playersAdded.map(player => {
-      overall = overall + player.rating
-      console.log("Suma de overall: "+overall)
+      if(player) {
+        overall = overall + player.rating
+        console.log("Suma de overall: "+overall)
+      }
     })
-    console.log("Overall calculada: "+overall / this.playersAdded.length)
-    return Math.round(overall / this.playersAdded.length)
+    console.log("Overall calculada: "+overall / this.countPlayers)
+    return Math.round(overall / this.countPlayers)
   }
 }

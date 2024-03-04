@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController, ToastOptions } from '@ionic/angular';
 import { UserCredentials } from 'src/app/interfaces/user-credentials';
 import { AuthService } from 'src/app/services/api/auth.service';
 
@@ -13,7 +14,8 @@ export class LoginPage implements OnInit {
 
   constructor(
     private auth:AuthService,
-    private router:Router
+    private router:Router,
+    private toast:ToastController
   ) { }
 
   ngOnInit() {
@@ -21,11 +23,20 @@ export class LoginPage implements OnInit {
 
   onLogin(credentials:UserCredentials) {
     this.auth.login(credentials).subscribe({
-      next: () => {
+      next: (user:any) => {
+        console.log(user)
         this.router.navigate(['/home'])
       },
       error: (err: any) => {
-        console.log(err)
+        const options:ToastOptions = {
+          message:`Las credenciales no son correctas`,
+          duration:1000,
+          position:'bottom',
+          color:'danger',
+          cssClass:'red-toast'
+        }
+        this.toast.create(options).then(toast=>toast.present())
+        console.error(err)
       }
     })
   }

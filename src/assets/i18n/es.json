@@ -1,7 +1,7 @@
 {
     "home":{
         "title":"¡Bienvenido a FUTCaser!",
-        "subtitle":"Busca información sobre los jugadores de La Liga y crea jugadores personalizados y plantillas para ellos"
+        "subtitle":"Busca información sobre los mejores jugadores en la actualidad y crea jugadores personalizados y plantillas para ellos"
     },
     "player": {
         "nameLabel":"Nombre",
@@ -16,7 +16,8 @@
         "matchesLabel":"Partidos",
         "goalsLabel":"Goles",
         "assistsLabel":"Asistencias",
-        "cleanSheetsLabel":"Porterias a cero"
+        "cleanSheetsLabel":"Porterias a cero",
+        "watchHighlights":"Ver Highlights"
     },
     "squad":{
         "lineUpLabel":"Formación"
@@ -57,8 +58,8 @@
     "menu":{
         "home":"Inicio",
         "login":"Iniciar sesión",
-        "myplayers":"Mis jugadores",
-        "mysquads":"Mis plantillas",
+        "myplayers":"Jugadores",
+        "mysquads":"Plantillas",
         "signout":"Cerrar sesión",
         "about":"Información"
     },

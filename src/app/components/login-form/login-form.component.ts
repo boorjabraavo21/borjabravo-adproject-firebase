@@ -18,7 +18,7 @@ export class LoginFormComponent  implements OnInit {
   @Output() onsubmitAnonymously = new EventEmitter<void>()
 
   constructor(
-    private formBuilder:FormBuilder
+    private formBuilder:FormBuilder,
   ) { 
     this.form = formBuilder.group( {
       email:['',[Validators.required]],

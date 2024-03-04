@@ -182,7 +182,11 @@ export class FirebaseService {
     return new Promise<FirebaseUserCredential | null>(async (resolve, reject)=>{
         if(!this._auth)
             resolve(null);
-        resolve({user: await signInWithEmailAndPassword(this._auth!, email, password)});
+        try {
+          resolve({user: await signInWithEmailAndPassword(this._auth!, email, password)});
+        } catch(error:any) {
+          reject(error)
+        }
     });
         
   }

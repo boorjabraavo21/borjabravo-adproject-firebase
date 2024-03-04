@@ -1,7 +1,7 @@
 {
     "home":{
         "title":"Welcome to FUTCaser!",
-        "subtitle":"Search information of La Liga players and create new players and squads for them"
+        "subtitle":"Search information of the best players in the world and create new players and squads for them"
     },
     "player": {
         "nameLabel":"Name",
@@ -16,7 +16,8 @@
         "matchesLabel":"Matches",
         "goalsLabel":"Goals",
         "assistsLabel":"Assists",
-        "cleanSheetsLabel":"Clean sheets"
+        "cleanSheetsLabel":"Clean sheets",
+        "watchHighlights":"Watch Highlights"
     },
     "squad":{
         "lineUpLabel":"Line-Up"
@@ -62,8 +63,8 @@
     "menu":{
         "home":"Home",
         "login":"Login",
-        "myplayers":"My players",
-        "mysquads":"My squads",
+        "myplayers":"Players",
+        "mysquads":"Squads",
         "signout":"Sign out",
         "about":"About"
     },

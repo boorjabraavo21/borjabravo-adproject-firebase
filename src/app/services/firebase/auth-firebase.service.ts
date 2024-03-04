@@ -9,7 +9,7 @@ import { FirebaseService } from './firebase.service';
 export class AuthFirebaseService extends AuthService {
 
   constructor(
-    private fbSvc:FirebaseService
+    private fbSvc:FirebaseService,
   ) {
     super();
     fbSvc.isLogged$.subscribe(logged => {
@@ -49,6 +49,7 @@ export class AuthFirebaseService extends AuthService {
         }
       }).catch(err => {
         obs.error(err)
+        console.log(err)
       })
     });
   }

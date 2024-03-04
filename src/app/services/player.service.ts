@@ -30,7 +30,8 @@ export class PlayerService {
       picture:el.data['picture'],
       matches:el.data['matches'],
       numbers:el.data['numbers'],
-      assists:el.data['assists']
+      assists:el.data['assists'],
+      highlights:el.data['highlights']
     }
   }
 
@@ -47,6 +48,7 @@ export class PlayerService {
   addPlayer(player:Player):Observable<Player> {
     delete player.idPlayer
     player.team = "Created"
+    player.highlights = ""
     if(player.picture == null || player.picture == undefined)
       player.picture = ""
     player.matches = 0
