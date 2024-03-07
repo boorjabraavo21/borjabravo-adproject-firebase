@@ -86,18 +86,26 @@ export class PlayerService {
   deletePlayer(player:Player):Observable<void> {
     return new Observable<void>(obs => {
       this.fbSvc.getDocuments("squads").then(docs => {
-        docs.map(doc => {
-          var players:any[] = doc.data['players'].filter((p:Player) => player.playerName == p.playerName)
-          if(players.length <= 0) {
-            this.fbSvc.deleteDocument("players",player.idPlayer!!).then(_=>{
-              this.unsubscr = this.fbSvc.subscribeToCollection('players', this._players, this.mapPlayers);
-            }).catch(err => {
-              obs.error(err)
-            })
-          } else {
-            obs.error("No se pudo borrar")
-          }
-        })
+        if(docs.length > 0) {
+          docs.map(doc => {
+            var players:any[] = doc.data['players'].filter((p:Player) => player.playerName == p.playerName)
+            if(players.length <= 0) {
+              this.fbSvc.deleteDocument("players",player.idPlayer!!).then(_=>{
+                this.unsubscr = this.fbSvc.subscribeToCollection('players', this._players, this.mapPlayers);
+              }).catch(err => {
+                obs.error(err)
+              })
+            } else {
+              obs.error("No se pudo borrar")
+            }
+          })
+        } else {
+          this.fbSvc.deleteDocument("players",player.idPlayer!!).then(_=>{
+            this.unsubscr = this.fbSvc.subscribeToCollection('players', this._players, this.mapPlayers);
+          }).catch(err => {
+            obs.error(err)
+          })
+        }
       }).catch(err => obs.error(err))
     })
   }

@@ -1,8 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-button color="dark" fill="clear" (click)="onCancel()"><ion-icon slot="start" name="arrow-back-outline"></ion-icon></ion-button>
-    <ion-title *ngIf="mode=='New'">{{'form.mode.createSquad' | translate}}</ion-title>
-    <ion-title *ngIf="mode=='Edit'">{{'form.mode.editSquad' | translate}}</ion-title>
+    <div id="toolbar-content">
+      <ion-button color="dark" fill="clear" (click)="onCancel()"><ion-icon slot="start" name="arrow-back-outline"></ion-icon></ion-button>
+      <ion-title *ngIf="mode=='New'">{{'form.mode.createSquad' | translate}}</ion-title>
+      <ion-title *ngIf="mode=='Edit'">{{'form.mode.editSquad' | translate}}</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -23,7 +25,7 @@
       </ng-template>
     </ion-popover>
     <ion-item>
-      <ion-input type="text" [readonly]="true" label="Valoración" labelPlacement="fixed" formControlName="overall"></ion-input>
+      <ion-input id="overall" type="text" [readonly]="true" label="Valoración" labelPlacement="fixed" formControlName="overall"></ion-input>
     </ion-item>
     <ion-list *ngIf="formacion.value=='4-4-2'" formControlValue="players">
       <div class="positions">

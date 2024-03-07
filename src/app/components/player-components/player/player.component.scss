@@ -5,7 +5,7 @@
 ion-card {
     transition: all .5s ease;
     -webkit-transition: all .5s ease;
-    width: 550px;
+    width: 750px;
 }
 ion-avatar {
     width: 80px;
@@ -48,7 +48,7 @@ ion-card-content {
 }
 
 
-@media (max-width: 550px) {
+@media (max-width: 750px) {
     ion-card {
         width: 350px;
     }
