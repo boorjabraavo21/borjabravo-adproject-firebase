@@ -58,7 +58,7 @@
     "about":{
         "developer":"Web developer",
         "gitLabel":"Github account (click name to enter):",
-        "description":"This web app is an information app about football players from spanish La Liga, then there are two pages (authentication for use) where you can create your own players and line-up them on squads you can create for your purposes"
+        "description":"This web app is an information app about football players at the present, then there are two pages (authentication for use) where you can create your own players and line-up them on squads you can create for your purposes"
     },
     "menu":{
         "home":"Home",
