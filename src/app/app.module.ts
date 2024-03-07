@@ -12,6 +12,7 @@ import { SharedModule } from './shared/shared.module';
 import { DataStrapiService } from './services/api/strapi/data-strapi.service';
 import { ApiService } from './services/api/api.service';
 import { HttpClientWebProvider } from './services/http/http-client-web.provider';
+import { JwtService } from './services/jwt.service';
 import { createTranslateLoader } from './services/custom-translate.service';
 import { HttpClientProvider } from './services/http/http-client.provider';
 import { AuthService } from './services/api/auth.service';
