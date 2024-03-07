@@ -23,6 +23,7 @@ import { environment } from 'src/environments/environment';
 import { FirebaseService } from './services/firebase/firebase.service';
 import { MediaFirebaseService } from './services/firebase/media-firebase.service';
 
+
 export function DataServiceFactory(
   api:ApiService){
   return new DataStrapiService(api);
