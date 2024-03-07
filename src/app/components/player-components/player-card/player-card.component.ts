@@ -50,7 +50,7 @@ export class PlayerCardComponent  implements OnInit, ControlValueAccessor {
       },
     })
     popover.present()
-    const { data, role } = await popover.onWillDismiss()
+    const { data, role } = await popover.onDidDismiss()
     if (role === 'ok') {
       this.onPlayerSelected.emit(data)
       this.onChange?.(data)

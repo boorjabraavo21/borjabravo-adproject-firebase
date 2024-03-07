@@ -22,5 +22,5 @@ export abstract class AuthService {
 
   public abstract logout():Observable<void>;
 
-  public abstract me(id:string):Observable<any>;
+  public abstract me():Observable<User>;
 }

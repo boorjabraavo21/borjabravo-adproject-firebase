@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { PlayerFormComponent } from 'src/app/components/player-components/player-form/player-form.component';
 import { Player } from 'src/app/interfaces/player';
+import { User } from 'src/app/interfaces/user';
+import { AuthService } from 'src/app/services/api/auth.service';
 import { MediaService } from 'src/app/services/api/media.service';
 import { PlayerService } from 'src/app/services/player.service';
 import { SquadService } from 'src/app/services/squad.service';
@@ -15,13 +17,18 @@ import { SquadService } from 'src/app/services/squad.service';
 export class MyplayersPage implements OnInit {
 
   loading: boolean = false
-
+  players:Player[] = []
+  private user:User | null = null
   constructor(
     public playerSvc: PlayerService,
     public squadSvc: SquadService,
     private modal: ModalController,
-    private mediaSvc: MediaService
-  ) { }
+    private mediaSvc: MediaService,
+    private toast:ToastController,
+    private authSvc:AuthService
+  ) { 
+    this.authSvc.user$.subscribe(u => { this.user = u })
+  }
 
   ngOnInit() {
     this.loading = true
@@ -30,6 +37,10 @@ export class MyplayersPage implements OnInit {
 
   async onLoadPlayers(page: number = 0, refresh: any = null) {
     this.loading = false;
+    this.playerSvc.players$.subscribe(_players => {
+      console.log(this.user?.name)
+      this.players = _players.filter(p => this.user?.id == p.userId )
+    })
     /*
     this.playerSvc.query("").subscribe(response => {
       this._players.next(response)
@@ -98,7 +109,22 @@ export class MyplayersPage implements OnInit {
 
   onDeletePlayer(player: Player) {
     this.loading = true
-    this.playerSvc.deletePlayer(player).subscribe()
+    this.playerSvc.deletePlayer(player).subscribe({
+      next: (player:any) => {
+        console.log(player)
+      },
+      error: (err:any) => {
+        const options:ToastOptions = {
+          message:`El jugador que quieres borrar está en una plantilla`,
+          duration:1000,
+          position:'bottom',
+          color:'danger',
+          cssClass:'red-toast'
+        }
+        this.toast.create(options).then(toast=>toast.present())
+        console.error(err)
+      }
+    })
     this.onLoadPlayers();
   }
 

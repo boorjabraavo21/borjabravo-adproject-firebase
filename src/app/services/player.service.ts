@@ -1,20 +1,24 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Player } from '../interfaces/player';
 import { FirebaseDocument, FirebaseService } from './firebase/firebase.service';
-import { DocumentData, Unsubscribe } from 'firebase/firestore';
+import { Unsubscribe } from 'firebase/firestore';
+import { AuthService } from './api/auth.service';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerService {
-
   private _players = new BehaviorSubject<Player[]>([])
   public players$ = this._players.asObservable()
   private unsubscr:Unsubscribe|null = null;
+  private user:User | undefined
   constructor(
-    private fbSvc:FirebaseService
+    private fbSvc:FirebaseService,
+    private authSvc:AuthService
   ) { 
+    this.authSvc.me().subscribe(u => { this.user = u })
     this.unsubscr = this.fbSvc.subscribeToCollection('players', this._players, this.mapPlayers);
   }
 
@@ -31,7 +35,8 @@ export class PlayerService {
       matches:el.data['matches'],
       numbers:el.data['numbers'],
       assists:el.data['assists'],
-      highlights:el.data['highlights']
+      highlights:el.data['highlights'],
+      userId:el.data['userId']
     }
   }
 
@@ -46,15 +51,16 @@ export class PlayerService {
   }
 
   addPlayer(player:Player):Observable<Player> {
-    delete player.idPlayer
-    player.team = "Created"
-    player.highlights = ""
-    if(player.picture == null || player.picture == undefined)
-      player.picture = ""
-    player.matches = 0
-    player.assists = 0
-    player.numbers = 0
     return new Observable<Player>(obs => {
+      delete player.idPlayer
+      player.team = "Created"
+      player.highlights = ""
+      if(player.picture == null || player.picture == undefined)
+        player.picture = ""
+      player.matches = 0
+      player.assists = 0
+      player.numbers = 0
+      player.userId = this.user?.id
       this.fbSvc.createDocument("players",player).then(_=>{
         this.unsubscr = this.fbSvc.subscribeToCollection('players', this._players, this.mapPlayers);
         obs.next(player)
@@ -79,10 +85,20 @@ export class PlayerService {
 
   deletePlayer(player:Player):Observable<void> {
     return new Observable<void>(obs => {
-      this.fbSvc.deleteDocument("players",player.idPlayer!!).then().catch(err => {
-        this.unsubscr = this.fbSvc.subscribeToCollection('players', this._players, this.mapPlayers);
-        obs.error(err)
-      })
+      this.fbSvc.getDocuments("squads").then(docs => {
+        docs.map(doc => {
+          var players:any[] = doc.data['players'].filter((p:Player) => player.playerName == p.playerName)
+          if(players.length <= 0) {
+            this.fbSvc.deleteDocument("players",player.idPlayer!!).then(_=>{
+              this.unsubscr = this.fbSvc.subscribeToCollection('players', this._players, this.mapPlayers);
+            }).catch(err => {
+              obs.error(err)
+            })
+          } else {
+            obs.error("No se pudo borrar")
+          }
+        })
+      }).catch(err => obs.error(err))
     })
   }
 }

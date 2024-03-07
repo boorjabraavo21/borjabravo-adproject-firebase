@@ -6,7 +6,8 @@ export interface Squad {
     name:string,
     lineUp?:'4-3-3' | '4-4-2' | '3-4-3',
     overall:number,
-    players:Player[]
+    players:Player[],
+    userId?:string
 }
 
 export type PaginatedSquads = PaginatedData<Squad>

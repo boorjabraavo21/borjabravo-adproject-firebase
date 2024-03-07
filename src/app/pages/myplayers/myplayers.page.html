@@ -5,7 +5,7 @@
     </ion-buttons>
   </ion-item>
   <div id="jugadores">
-    <app-player *ngFor="let player of (playerSvc.players$ | async) | created" [player]="player"
+    <app-player *ngFor="let player of players | created" [player]="player"
               (onDeleteClicked)="onDeletePlayer(player)"
               (onEditClicked)="onEditPlayer(player)"></app-player>
   </div>

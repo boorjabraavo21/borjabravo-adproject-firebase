@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Player } from 'src/app/interfaces/player';
 import { Squad } from 'src/app/interfaces/squad';
 
 @Component({
@@ -10,7 +9,6 @@ import { Squad } from 'src/app/interfaces/squad';
 export class SquadComponent  implements OnInit {
 
   @Input() squad:Squad | undefined
-  players:Player[] | undefined
   @Output() onEditClicked:EventEmitter<void> = new EventEmitter<void>()
   @Output() onDeleteSquad:EventEmitter<void> = new EventEmitter<void>()
   constructor() { 
@@ -27,8 +25,7 @@ export class SquadComponent  implements OnInit {
   }
 
   ngOnInit() {
-    this.players = this.squad?.players
-    console.log(this.players)
+    
   }
 
 }

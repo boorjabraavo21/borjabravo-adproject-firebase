@@ -25,7 +25,8 @@ export class SquadFormComponent  implements OnInit {
       this.form.controls['lineUp'].setValue(_squad.lineUp)
       this.form.controls['players'].setValue(_squad.players)
       this.form.controls['overall'].setValue(_squad.overall)
-      this.playersAdded = _squad.players
+      this.playersAdded = [..._squad.players]
+      this.countPlayers = this.playersAdded.length
     }
   }
   constructor(
@@ -61,6 +62,7 @@ export class SquadFormComponent  implements OnInit {
     input.value = lineUp
     this.form.controls['players'].setValue([])
     this.form.controls['overall'].setValue(0)
+    this.countPlayers = 0
     this.playersAdded = []
     popover.dismiss()
   }

@@ -6,8 +6,18 @@
       </ion-buttons>
       <ion-card-title>{{squad?.name}}</ion-card-title>
       <ion-text>{{squad?.lineUp}}</ion-text>
-      <ion-text *ngIf="players">{{players[0].playerName}}</ion-text>
-      <ion-text *ngIf="players">{{players[1].playerName}}</ion-text>
+      <ion-list>
+        <div>
+          <div class="item">
+            <ion-text *ngFor="let player of squad?.players">{{player.playerName}}</ion-text>
+          </div>
+          <div class="item">
+            <ion-text *ngFor="let player of squad?.players">{{player.position}}</ion-text>
+          </div>
+        </div>
+      </ion-list>
+      <!-- <ion-text>{{squad!.players[0].playerName}}</ion-text>
+      <ion-text>{{squad!.players[1].playerName}}</ion-text> -->
     </ng-container>
   </ion-card-header>
   <ion-card-content>

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PopoverController, ToastController, ToastOptions } from '@ionic/angular';
-import { AppComponent } from 'src/app/app.component';
 import { Player } from 'src/app/interfaces/player';
+import { User } from 'src/app/interfaces/user';
+import { AuthService } from 'src/app/services/api/auth.service';
 import { PlayerService } from 'src/app/services/player.service';
 
 
@@ -13,6 +14,7 @@ import { PlayerService } from 'src/app/services/player.service';
 export class PlayerSearcherComponent  implements OnInit {
 
   players:Player[] = []
+  private user:User | undefined
   //pagination:Pagination = ({page:0, pageCount: 0, pageSize: 0, total:0})
   @Input() playersSelected:Player[] = []
   @Input() originalPlayers:boolean = false
@@ -23,15 +25,19 @@ export class PlayerSearcherComponent  implements OnInit {
   constructor(
     public plySvc:PlayerService,
     private popover:PopoverController,
-    private toast:ToastController
+    private toast:ToastController,
+    private authSvc:AuthService
   ) {}
 
   ngOnInit() {
+    this.authSvc.me().subscribe(u => { this.user = u })
   }
 
   onLoadPlayers(){
     this.plySvc.players$.subscribe(_players => {
-      this.players = _players
+      var originalPlayers = [..._players.filter(p => p.team != "Created")]
+      var userPlayers = [..._players.filter(p => p.userId == this.user?.id)]
+      this.players = originalPlayers.concat(userPlayers)
       this.showList = true
       this.sendStateList.emit(true)
     })
@@ -44,7 +50,9 @@ export class PlayerSearcherComponent  implements OnInit {
   private filter(value:string) {
     const query = value
     this.plySvc.players$.subscribe(_players => {
-      this.players = _players.filter(p => p.playerName.toLowerCase().includes(query))
+      var originalPlayers = [..._players.filter(p => p.team != "Created")]
+      var userPlayers = [..._players.filter(p => p.userId == this.user?.id)]
+      this.players = originalPlayers.concat(userPlayers).filter(p => p.playerName.toLowerCase().includes(query))
     })
   }
 

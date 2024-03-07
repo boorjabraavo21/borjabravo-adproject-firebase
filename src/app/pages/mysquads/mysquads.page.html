@@ -5,8 +5,8 @@
     </ion-buttons>
   </ion-item>
   <div id="squads">
-    <app-squad highlight *ngFor="let squad of squads.squads$ | async" (onEditClicked)="onEditSquad(squad)" 
-    (onDeleteSquad)="onDeleteSquad(squad)" [squad]="squad" ></app-squad>
+    <app-squad highlight *ngFor="let squad of squads" (onEditClicked)="onEditSquad(squad)" 
+    (onDeleteSquad)="onDeleteSquad(squad)" [squad]="squad"></app-squad>
   </div>
   <ion-loading [isOpen]="loading" class="custom-loading" spinner="dots"></ion-loading>
 </ion-content>
