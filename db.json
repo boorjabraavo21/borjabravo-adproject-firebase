@@ -1,0 +1,44 @@
+{
+  "players": [
+    {
+      "id": 1,
+      "name": "Vinicius Jr",
+      "age": 23,
+      "rating": 89,
+      "position": "Forward",
+      "nation": "Brasil",
+      "team": "Real Madrid",
+      "picture": "./src/assets/vinicius.png"
+    },
+    {
+      "id": 2,
+      "name": "Pedri",
+      "age": 20,
+      "rating": 86,
+      "position": "Midfielder",
+      "nation": "Spain",
+      "team": "Barcelona",
+      "picture": "./src/assets/pedri.png"
+    },
+    {
+      "id": 3,
+      "name": "Griezmann",
+      "age": 32,
+      "rating": 88,
+      "position": "Forward",
+      "nation": "France",
+      "team": "Atlético de Madrid",
+      "picture": "./src/assets/griezmann.png"
+    },
+    {
+      "id": 4,
+      "name": "Take Kubo",
+      "age": 22,
+      "rating": 80,
+      "position": "Forward",
+      "nation": "Japan",
+      "team": "Real Sociedad",
+      "picture": "./src/assets/kubo.png"
+    }
+  ]
+}
